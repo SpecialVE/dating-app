@@ -1,36 +1,23 @@
-interface User {
-  name: {
-    first: string;
-    last: string;
-  };
+interface ProfileCardProps {
+  picture: string;
+  name: string;
   gender: string;
   email: string;
-  dob: {
-    age: number;
-  };
-  picture: {
-    large: string;
-  };
+  age: number;
 }
 
-const ProfileCard: React.FC<{ user: User }> = ({ user }) => {
+function ProfileCard({ picture, name, gender, email, age }: ProfileCardProps) {
   return (
-    <div className="max-w-sm rounded overflow-hidden shadow-lg bg-white p-6">
-      <img
-        src={user.picture.large}
-        alt={`${user.name.first} ${user.name.last}`}
-        className="w-32 h-32 rounded-full mx-auto"
-      />
-      <div className="text-center mt-4">
-        <h2 className="text-xl font-bold">
-          {user.name.first} {user.name.last}
-        </h2>
-        <p className="text-gray-600">Gender: {user.gender}</p>
-        <p className="text-gray-600">Email: {user.email}</p>
-        <p className="text-gray-600">Age: {user.dob.age}</p>
+    <div className="bg-white shadow-md rounded p-4 max-w-xs mx-auto">
+      <img className="rounded-full mx-auto mb-4" src={picture} alt={name} />
+      <div className="text-center">
+        <h2 className="text-xl font-bold">{name}</h2>
+        <p className="text-gray-600">Gender: {gender}</p>
+        <p className="text-gray-600">Email {email}</p>
+        <p className="text-gray-600">Age: {age}</p>
       </div>
     </div>
   );
-};
+}
 
 export default ProfileCard;
