@@ -1,6 +1,6 @@
-import { useQuery } from '@tanstack/react-query';
-import { fetchUserData } from './utils/api';
-import { UserData } from './utils/types';
+import { useQuery } from "@tanstack/react-query";
+import { fetchUserData } from "./utils/api";
+import { UserData } from "./utils/types";
 
 function App() {
   // You used array destructuring, return type is an object
@@ -9,7 +9,7 @@ function App() {
     isLoading,
     error,
   } = useQuery<UserData[]>({
-    queryKey: ['users'],
+    queryKey: ["users"],
     queryFn: fetchUserData,
   });
 
