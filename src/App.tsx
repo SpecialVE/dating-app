@@ -1,38 +1,17 @@
-import ProfileCard from "./components/ProfileCard";
-import { useUserData } from "./hooks/useUserData";
+import { useQuery } from "@tanstack/react-query";
+import { fetchUserData } from "./utils/api";
+import { userData } from "./utils/types";
 
 function App() {
-  const { data, isLoading, error, refetch } = useUserData();
+  const [data: user, isLoading, error] = useQuery<userData[]>({
+    queryKey: ["users"],
+    queryFn: fetchUserData,
+  });
 
   if (isLoading) return <p>Loading...</p>;
-  if (error) return <p> Something went wrong!</p>;
+  if (error) return <p>Something went wrong: {error.message}</p>;
 
-  console.log("Data:", data);
-
-  if (!data || !data.results || data.results.length === 0) {
-    return <p>No user data found</p>;
-  }
-
-  const user = data.results[0];
-  const name = `${user.name.first} ${user.name.last}`;
-  const age = user.dob.age;
-
-  return (
-    <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center">
-      <ProfileCard
-        picture={user.picture.large}
-        name={name}
-        gender={user.gender}
-        email={user.email}
-        age={age}
-      />
-      <div className="mt-4">
-        <button className="px-4 py-2 bg-blue-500 text-white rounded mr-2" onClick={() => refetch()}>
-          Next Profile
-        </button>
-      </div>
-    </div>
-  );
-}
+  return <></>;
+};
 
 export default App;
