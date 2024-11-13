@@ -1,9 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
 import { fetchUserData } from "./utils/api";
-import { userData } from "./utils/types";
+import { UserData } from "./utils/types";
 
 function App() {
-  const [data: user, isLoading, error] = useQuery<userData[]>({
+  // You used array destructuring, return type is an object
+  const {
+    data: user,
+    isLoading,
+    error,
+  } = useQuery<UserData[]>({
     queryKey: ["users"],
     queryFn: fetchUserData,
   });
@@ -11,7 +16,7 @@ function App() {
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Something went wrong: {error.message}</p>;
 
-  return <></>;
-};
+  return <pre>{JSON.stringify(user, null, 2)}</pre>;
+}
 
 export default App;
